@@ -41,7 +41,7 @@ const plans = [
         monthlyPrice: 50,
         annualPrice: 480,
         period: "/month",
-        description: "For large scale organizations",
+        description: "For large scale organisations",
         icon: Rocket,
         features: [
             "Unlimited everything",
@@ -98,7 +98,7 @@ function App() {
                         Choose your plan
                     </h1>
                     <p
-                        className={`mt-5 max-w-xl mx-auto text-xl ${
+                        className={`mt-5 max-w-xl mx-auto text-xl lg:text-2xl text-balance ${
                             isDark ? "text-gray-300" : "text-gray-500"
                         }`}
                     >

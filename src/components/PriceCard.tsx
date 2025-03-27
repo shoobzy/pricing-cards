@@ -31,7 +31,7 @@ const getColorClasses = (color: string, isDark: boolean) => ({
 
 const PriceCard: React.FC<PriceCardProps> = ({ plan, price, isDark }) => {
     const colorClasses = getColorClasses(plan.color, isDark);
-    const formattedPrice = `$${price}`;
+    const formattedPrice = `£${price}`;
 
     return (
         <div
