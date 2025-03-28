@@ -42,8 +42,8 @@ export const AnimatedPriceOdometer: React.FC<AnimatedPriceOdometerProps> = ({
     const digits = value.toString().split("");
 
     return (
-        <div className="flex text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white">
-            <span className="mr-1">{prefix}</span>
+        <div className="flex text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white price">
+            <span>{prefix}</span>
             {digits.map((digit, index) => (
                 <div
                     key={index}

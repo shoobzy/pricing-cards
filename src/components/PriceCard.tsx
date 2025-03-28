@@ -60,16 +60,15 @@ const PriceCard: React.FC<PriceCardProps> = ({ plan, price }) => {
             </p>
 
             <div className="mt-6">
-                <AnimatedPriceOdometer value={price}>
-                    <span className="text-xl font-medium text-gray-500 dark:text-gray-400 self-end ml-1">
-                        {plan.period}
-                    </span>
-                </AnimatedPriceOdometer>
+                <AnimatedPriceOdometer value={price}></AnimatedPriceOdometer>
+                <span className="text-xl font-medium text-gray-500 dark:text-gray-400 self-end ml-1">
+                    {plan.period}
+                </span>
             </div>
 
             <ul className="mt-6 space-y-4 grow">
                 {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
+                    <li key={feature} className="flex items-center">
                         <div className="shrink-0">
                             <Check className="h-5 w-5 text-green-500" />
                         </div>
