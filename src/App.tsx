@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Crown, Moon, Rocket, Sun, Zap } from "lucide-react";
 import { useTheme } from "./ThemeContext";
 import PriceCard from "./components/PriceCard";
+import BillingToggle from "./components/BillingToggle";
 
 const plans = [
     {
@@ -56,7 +57,7 @@ const plans = [
 
 function App() {
     const [isAnnual, setIsAnnual] = useState(false);
-    const { isDark, toggleDark } = useTheme();
+    const { toggleDark } = useTheme();
     const annualDiscount = 20; // 20% discount for annual plans
 
     const calculatePrice = (monthlyPrice: number, annualPrice: number) => {
@@ -66,90 +67,33 @@ function App() {
     };
 
     return (
-        <div
-            className={`min-h-screen transition-colors duration-200 ${
-                isDark
-                    ? "bg-gray-900"
-                    : "bg-gradient-to-br from-gray-50 to-gray-100"
-            } py-16 px-4 sm:px-6 lg:px-8`}
-        >
+        <div className="min-h-screen transition-colors duration-200 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-900 py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center relative">
                     <button
                         onClick={toggleDark}
-                        className={`absolute right-0 top-0 p-2 rounded-lg ${
-                            isDark
-                                ? "bg-gray-800 text-gray-200"
-                                : "bg-white text-gray-700"
-                        } shadow-lg hover:shadow-xl transition-all duration-200`}
+                        className="absolute w-9 h-9 right-0 top-0 p-2 rounded-lg dark:bg-gray-800 bg-white  shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer overflow-hidden"
                         aria-label="Toggle dark mode"
                     >
-                        {isDark ? (
-                            <Sun className="h-5 w-5" />
-                        ) : (
-                            <Moon className="h-5 w-5" />
-                        )}
+                        <Sun className="h-5 w-5 transition-all duration-200 text-gray-200" />
+                        <Moon className="h-5 w-5 transition-all duration-200 text-gray-700" />
                     </button>
-                    <h1
-                        className={`text-4xl font-extrabold ${
-                            isDark ? "text-white" : "text-gray-900"
-                        } sm:text-5xl sm:tracking-tight lg:text-6xl`}
-                    >
+                    <h1 className="text-4xl font-extrabold dark:text-white text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
                         Choose your plan
                     </h1>
-                    <p
-                        className={`mt-5 max-w-xl mx-auto text-xl lg:text-2xl text-balance ${
-                            isDark ? "text-gray-300" : "text-gray-500"
-                        }`}
-                    >
+                    <p className="mt-5 max-w-xl mx-auto text-xl lg:text-2xl text-balance dark:text-gray-300 text-gray-500">
                         Select the perfect plan for your needs. Upgrade or
                         downgrade at any time.
                     </p>
 
                     <div className="mt-8 flex items-center justify-center gap-3">
-                        <span
-                            className={`text-sm font-medium ${
-                                !isAnnual
-                                    ? isDark
-                                        ? "text-white"
-                                        : "text-gray-900"
-                                    : isDark
-                                    ? "text-gray-400"
-                                    : "text-gray-500"
-                            }`}
-                        >
-                            Monthly
-                        </span>
-                        <button
-                            onClick={() => setIsAnnual(!isAnnual)}
-                            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ${
-                                isDark ? "bg-gray-700" : "bg-gray-200"
-                            }`}
-                            role="switch"
-                            aria-checked={isAnnual}
-                        >
-                            <span
-                                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                                    isAnnual ? "translate-x-5" : "translate-x-0"
-                                }`}
-                            />
-                        </button>
-                        <span
-                            className={`text-sm font-medium ${
-                                isAnnual
-                                    ? isDark
-                                        ? "text-white"
-                                        : "text-gray-900"
-                                    : isDark
-                                    ? "text-gray-400"
-                                    : "text-gray-500"
-                            }`}
-                        >
-                            Annual
-                            <span className="ml-1.5 inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                                Save {annualDiscount}%
-                            </span>
-                        </span>
+                        <BillingToggle
+                            isAnnual={isAnnual}
+                            onToggle={() => setIsAnnual(!isAnnual)}
+                            monthlyLabel="Pay Monthly"
+                            annualLabel="Pay Yearly"
+                            discount={annualDiscount}
+                        />
                     </div>
                 </div>
 
@@ -163,7 +107,6 @@ function App() {
                                 plan.monthlyPrice,
                                 plan.annualPrice
                             )}
-                            isDark={isDark}
                         />
                     ))}
                 </div>

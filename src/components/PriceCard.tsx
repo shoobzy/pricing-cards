@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-
+import { AnimatedPriceOdometer } from "./AnimatedPriceOdometer";
 interface Plan {
     name: string;
     monthlyPrice: number;
@@ -15,31 +15,23 @@ interface Plan {
 interface PriceCardProps {
     plan: Plan;
     price: number;
-    isDark: boolean;
     isAnnual: boolean;
 }
 
-const getColorClasses = (color: string, isDark: boolean) => ({
-    backgroundColor: isDark ? `bg-${color}-600` : `bg-${color}-100`,
-    iconColor: isDark ? `text-${color}-100` : `text-${color}-600`,
+const getColorClasses = (color: string) => ({
+    backgroundColor: `bg-${color}-100 dark:bg-${color}-600`,
+    iconColor: `text-${color}-600 dark:text-${color}-100`,
     buttonColor: `bg-${color}-600 text-white hover:bg-${color}-700 focus:ring-${color}-600`,
-    buttonHoverColor: isDark
-        ? `hover:bg-${color}-700`
-        : `hover:bg-${color}-600`,
+    buttonHoverColor: `hover:bg-${color}-600 dark:hover:bg-${color}-700`,
     ringColor: `focus:ring-${color}-600`,
 });
 
-const PriceCard: React.FC<PriceCardProps> = ({ plan, price, isDark }) => {
-    const colorClasses = getColorClasses(plan.color, isDark);
-    const formattedPrice = `£${price}`;
+const PriceCard: React.FC<PriceCardProps> = ({ plan, price }) => {
+    const colorClasses = getColorClasses(plan.color);
 
     return (
         <div
-            className={`price-card relative flex flex-col rounded-2xl ${
-                isDark
-                    ? "bg-gray-800 border-gray-700"
-                    : "bg-white border-gray-200"
-            } border shadow-lg p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+            className={`price-card relative flex flex-col rounded-2xl border shadow-lg p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 ${
                 plan.popular ? "ring-2 ring-purple-500" : ""
             }`}
         >
@@ -60,45 +52,28 @@ const PriceCard: React.FC<PriceCardProps> = ({ plan, price, isDark }) => {
                 />
             </div>
 
-            <h3
-                className={`text-xl font-bold ${
-                    isDark ? "text-white" : "text-gray-900"
-                }`}
-            >
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 {plan.name}
             </h3>
-            <p className={`mt-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+            <p className="mt-4 text-gray-500 dark:text-gray-400">
                 {plan.description}
             </p>
 
             <div className="mt-6">
-                <span
-                    className={`text-4xl lg:text-5xl font-extrabold ${
-                        isDark ? "text-white" : "text-gray-900"
-                    }`}
-                >
-                    {formattedPrice}
-                </span>
-                <span
-                    className={`text-base font-medium ${
-                        isDark ? "text-gray-400" : "text-gray-500"
-                    }`}
-                >
-                    {plan.period}
-                </span>
+                <AnimatedPriceOdometer value={price}>
+                    <span className="text-xl font-medium text-gray-500 dark:text-gray-400 self-end ml-1">
+                        {plan.period}
+                    </span>
+                </AnimatedPriceOdometer>
             </div>
 
-            <ul className="mt-6 space-y-4 flex-grow">
+            <ul className="mt-6 space-y-4 grow">
                 {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start">
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                             <Check className="h-5 w-5 text-green-500" />
                         </div>
-                        <span
-                            className={`ml-3 text-base ${
-                                isDark ? "text-gray-400" : "text-gray-500"
-                            }`}
-                        >
+                        <span className="ml-3 text-base dark:text-gray-400 text-gray-500">
                             {feature}
                         </span>
                     </li>
@@ -107,7 +82,7 @@ const PriceCard: React.FC<PriceCardProps> = ({ plan, price, isDark }) => {
 
             <div className="mt-8">
                 <button
-                    className={`w-full rounded-lg ${colorClasses.buttonColor} px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-200 ${colorClasses.buttonHoverColor} focus:outline-none focus:ring-2 ${colorClasses.ringColor} focus:ring-offset-2`}
+                    className={`w-full rounded-lg ${colorClasses.buttonColor} px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-200 ${colorClasses.buttonHoverColor} focus:outline-hidden focus:ring-2 ${colorClasses.ringColor} focus:ring-offset-2 cursor-pointer`}
                 >
                     Get started
                 </button>
