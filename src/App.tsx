@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Crown, Moon, Rocket, Sun, Zap } from "lucide-react";
-import { useTheme } from "./ThemeContext";
+import { useTheme } from "./useTheme";
 import PriceCard from "./components/PriceCard";
 import BillingToggle from "./components/BillingToggle";
 
