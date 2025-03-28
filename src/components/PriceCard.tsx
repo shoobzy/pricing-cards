@@ -59,7 +59,7 @@ const PriceCard: React.FC<PriceCardProps> = ({ plan, price }) => {
                 {plan.description}
             </p>
 
-            <div className="mt-6">
+            <div className="mt-5">
                 <AnimatedPriceOdometer value={price}></AnimatedPriceOdometer>
                 <span className="text-xl font-medium text-gray-500 dark:text-gray-400 self-end ml-1">
                     {plan.period}
