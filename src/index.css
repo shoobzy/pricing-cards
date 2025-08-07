@@ -23,11 +23,13 @@
 
 body {
     font-family: "Inter", "sans-serif";
+    font-optical-sizing: auto;
 }
 
 .price {
-    font-family: "Space Mono", monospace;
+    font-weight: 900;
     font-style: normal;
+    font-variant-numeric: tabular-nums;
 }
 
 .lucide-moon,
